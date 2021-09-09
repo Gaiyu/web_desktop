@@ -1,0 +1,81 @@
+@import '@/scss/icons.scss';
+
+$bg: #0099CC;
+$md: #99CC33;
+$ft: #FFFFFF;
+$tr: rgba(255, 255, 255, 0.0);
+$htr: rgba(255, 255, 255, 0.3);
+$bhtr: rgba(0, 0, 0, 0.5);
+$shadow: 0 5px 12px 0 rgba(0, 0, 0, 0.3);
+
+$window-color: black;
+$window-bgcolor: ghostwhite;
+
+$menu-color: dimgray;
+$menu-bgcolor: rgba(255, 255, 255, 0.9);
+$menu-hover-bgcolor: azure;
+$menu-hover-color: black;
+
+$titlebar-focused-color: black;
+$titlebar-color: darkgray;
+$titlebar-focused-bgcolor: rgba(255, 255, 255, 0.8);
+$titlebar-bgcolor: rgba(255, 255, 255, 0.9);
+$title-height: 25px;
+$title-button-margin: 5px;
+$title-bt-w: 12px;
+$title-bt-h: 2px;
+$title-bt-b: 1px;
+
+$taskbar-height: 41px;
+$taskbar-focused-bgcolor: rgba(255, 255, 255, 0.3);
+$taskbar-bgcolor: rgba(255, 255, 255, 0.9);
+$taskbar-focused-color: #000000;
+$taskbar-color: #808080;
+
+$menu-zindex: 3;
+$window-focused-zindex: 2;
+$window-zindex: 1;
+$taskbar-zindex: -1;
+$icon-zindex: -2;
+$clock-zindex: -3;
+$wallpaper-zindex: -4;
+$desktop-zindex: -5;
+
+$resize-bar-pixels: 4px;
+
+.background {
+	background-color: $bg;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.transparent {
+	/*box-shadow: $shadow;*/
+	filter:alpha(opacity=20);
+	-moz-opacity:0.2;
+	-khtml-opacity: 0.2;
+	opacity: 0.2;
+	color:$ft;
+}
+
+.non-selectable {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+* {
+	font-family: "Microsoft YaHei";
+}
+
+/*
+@function Rotate($deg) {
+	transform: rotate($deg);
+	-webkit-transform: rotate($deg);
+	-moz-transform: rotate($deg);
+}
+*/
