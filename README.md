@@ -1,5 +1,5 @@
 # web_desktop
-A web desktop desktop implementation using vue3.
+A web desktop implemented using vue3.
 
 ## Project setup
 ```
