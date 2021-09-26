@@ -18,7 +18,7 @@ export class AesCBCPkcs7 {
 		).toString(CryptoJS.enc.Utf8)
 	}
 
-    encrypt(plaintext: string) :string {
+	encrypt(plaintext: string) :string {
 		return CryptoJS.enc.Base64.stringify(
 			CryptoJS.AES.encrypt(
 				CryptoJS.enc.Utf8.parse(plaintext),
