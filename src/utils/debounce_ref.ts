@@ -10,7 +10,7 @@ export default function debouncedRef<T>(value: T, delay = 10) : Ref<T> {
 			},
 			set(newValue: T) {
 				clearTimeout(timeout)
-				timeout = setTimeout(() => {
+				timeout = window.setTimeout(() => {
 					value = newValue
 					trigger()
 				}, delay)
