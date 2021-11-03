@@ -1,8 +1,8 @@
 import CryptoJS from 'crypto-js'
 
 export class AesCBCPkcs7 {
-	key: CryptoJS.lib.WordArray
-	iv: CryptoJS.lib.WordArray
+	private key: CryptoJS.lib.WordArray
+	private iv: CryptoJS.lib.WordArray
 
 	constructor(passwd: string) {
 		const passwd_hash = CryptoJS.SHA256(passwd).toString()
