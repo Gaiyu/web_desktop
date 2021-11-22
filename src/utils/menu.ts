@@ -43,6 +43,7 @@ export class Menu {
 	readonly father_menu: Menu | null
 	cmd_list: Array<Command>
 	visibled: boolean
+	align_right: boolean
 	x: number
 	y: number
 
@@ -50,6 +51,7 @@ export class Menu {
 		this.father_menu = father_menu
 		this.cmd_list = []
 		this.visibled = false
+		this.align_right = false
 		this.x = 0
 		this.y = 0
 		Menu.list.push(this)
@@ -65,12 +67,13 @@ export class Menu {
 		this.visibled = false
 	}
 
-	show(x: number, y: number) :void {
+	show(x: number, y: number, align_right = false) :void {
 		if (null === this.father_menu)
 			Menu.hide()
 		this.x = x
 		this.y = y
 		this.visibled = true
+		this.align_right = align_right
 	}
 
 	push(cmd: Command) :Menu {

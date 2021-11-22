@@ -78,9 +78,12 @@
 
 <script setup lang='ts'>
 import { onMounted, onUnmounted, reactive } from 'vue'
+import { useRouter } from 'vue-router'
 import { Menu, Command } from '@/utils/menu.ts'
 import { Application, AppType, DeskIcon } from '@/utils/application.ts'
 import { DeskWallpaper } from '@/utils/desk_wallpaper.ts'
+import { Session } from '@/docking/session.ts'
+import { DockingDesktop } from '@/docking/desktop.ts'
 
 import Wallpaper from '@/views/Desktop/Wallpaper.vue'
 import Taskbar from '@/views/Desktop/Taskbar.vue'
@@ -104,9 +107,20 @@ Command.regExec(desk_right_menu, '刷新', 'el-icon-refresh', updateIcons)
 Command.regExec(desk_right_menu, '下一个桌面背景', 'el-icon-picture-outline', DeskWallpaper.next)
 Command.regExec(desk_right_menu, '设置', 'el-icon-setting', openSetting)
 
+Command.regExec(desk_right_menu, 'test', 'el-icon-setting', openTest)
+
 Command.regExec(taskbar_right_menu, '关闭所有窗口', 'el-icon-close', closeAllWindows)
 Command.regExec(taskbar_right_menu, '显示所有窗口', 'el-icon-plus', normalizeAllWindows)
 Command.regExec(taskbar_right_menu, '最小化所有窗口', 'el-icon-minus', minimizeAllWindows)
+
+const router = useRouter()
+
+function openTest() {
+	if (null != Session.current) {
+		console.log(Session.current.account)
+		console.log(Session.current.key.encrypt("123"))
+	}
+}
 
 function openSetting() {
 	Application.open(AppType.Setting, '设置', 'el-icon-setting')
@@ -143,9 +157,17 @@ function updateIcons() {
 			DeskIcon.list[i].update()
 }
 
-onMounted(() => {
+function onLoginSuccess() {
 	DeskIcon.setup()
 	window.onresize = updateIcons
+}
+
+function onLoginFailed() {
+	router.push('/')
+}
+
+onMounted(() => {
+	DockingDesktop.login(onLoginSuccess, onLoginFailed)
 })
 
 onUnmounted(() => {

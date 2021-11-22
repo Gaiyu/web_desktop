@@ -19,12 +19,59 @@
 		</el-col>
 		<el-col :span="1"><el-button icon="el-icon-chat-dot-round"></el-button></el-col>
 		<el-col :span="1"><el-button icon="el-icon-map-location"></el-button></el-col>
-		<el-col :span="3"><el-button icon="el-icon-user">admin</el-button></el-col>
+		<el-col :span="3">
+			<el-button icon="el-icon-user"
+				@click.left.stop="switchUserSheet()"
+			>
+				{{ account }}
+			</el-button>
+		</el-col>
 	</el-row>
 </template>
 
 <script setup lang='ts'>
+import { ref, reactive } from 'vue'
+import { useRouter } from 'vue-router'
 import { Application } from '@/utils/application.ts'
+import { Menu, Command } from '@/utils/menu.ts'
+import { DockingDesktop } from '@/docking/desktop.ts'
+import RightClickMenu from '@/components/RightClickMenu.vue'
+
+const router = useRouter()
+const account = ref('')
+const user_sheet_menu = reactive(new Menu())
+
+Command.regExec(user_sheet_menu, '账号设置', 'el-icon-user', openUserSetting)
+Command.regExec(user_sheet_menu, '退出', 'el-icon-bicycle', logout)
+Command.regExec(user_sheet_menu, '重启', 'el-icon-refresh-right', reboot)
+Command.regExec(user_sheet_menu, '关机', 'el-icon-switch-button', poweroff)
+
+function onLogout() {
+	router.push('/')
+}
+
+function openUserSetting() {
+	console.log('openUserSetting')
+}
+
+function logout() {
+	DockingDesktop.logout(onLogout)
+}
+
+function reboot() {
+	console.log('reboot')
+}
+
+function poweroff() {
+	console.log('poweroff')
+}
+
+function switchUserSheet() {
+	if (user_sheet_menu.visibled)
+		user_sheet_menu.hide()
+	else
+		user_sheet_menu.show(0, 41, true)
+}
 
 function onBarButtonClick(app: Application) {
 	if (app.focused)

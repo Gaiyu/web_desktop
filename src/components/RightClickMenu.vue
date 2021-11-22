@@ -2,7 +2,8 @@
 	<table
 		id="main"
 		:style="{
-			left: props.menu.x + 'px',
+			left: props.menu.align_right ? auto : props.menu.x + 'px',
+			right: props.menu.align_right ? props.menu.x + 'px' : auto,
 			top: props.menu.y + 'px'
 		}"
 		border="0"
@@ -41,8 +42,8 @@ function onMenuClick(cmd: Command) {
 #main {
 	@extend .non-selectable;
 	position: absolute;
-	left: 100px;
-	top: 100px;
+	left: auto;
+	top: auto;
 	color: $menu-color;
 	background-color: $menu-bgcolor;
 	z-index: $menu-zindex;

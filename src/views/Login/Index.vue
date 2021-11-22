@@ -12,25 +12,26 @@
 <script setup lang='ts'>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { Session } from '@/utils/session.ts'
+import { Session, LoginSession } from '@/docking/session.ts'
 
 const account = ref('')
 const passwd = ref('')
-const router = useRouter();
+const router = useRouter()
 
-function onAuthSuccess() {
-	router.push('/desktop')
+function onAuthSuccess(session: LoginSession) {
+	new Session(session.account, session.session_id, session.token, session.aes_key)
+	router.push({name: 'Desktop'})
 }
 
-function onAuthFailed() {
+function onAuthFailed(session: LoginSession) {
 	alert('onAuthFailed')
 }
 
 function onLoginButtonClick() {
-	console.log("onLoginButtonClick:", account.value, ",", passwd.value)
-	const session = new Session(account.value, onAuthSuccess, onAuthFailed)
+	const session = new LoginSession(account.value, onAuthSuccess, onAuthFailed)
 	session.auth(passwd.value)
 }
+
 </script>
 
 <style scoped lang="scss">
