@@ -30,12 +30,12 @@
 </template>
 
 <script setup lang='ts'>
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { Application } from '@/utils/application.ts'
 import { Menu, Command } from '@/utils/menu.ts'
 import { DockingDesktop } from '@/docking/desktop.ts'
-import RightClickMenu from '@/components/RightClickMenu.vue'
+import { Session } from '@/docking/session.ts'
 
 const router = useRouter()
 const account = ref('')
@@ -47,6 +47,7 @@ Command.regExec(user_sheet_menu, '重启', 'el-icon-refresh-right', reboot)
 Command.regExec(user_sheet_menu, '关机', 'el-icon-switch-button', poweroff)
 
 function onLogout() {
+	account.value = Session.current_account()
 	router.push('/')
 }
 
@@ -81,6 +82,18 @@ function onBarButtonClick(app: Application) {
 		app.focus()
 	}
 }
+
+function onLoginSuccess() {
+	account.value = Session.current_account()
+}
+
+function onLoginFailed() {
+	router.push('/')
+}
+
+onMounted(() => {
+	DockingDesktop.login(onLoginSuccess, onLoginFailed)
+})
 </script>
 
 <style scoped lang="scss">

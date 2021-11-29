@@ -16,6 +16,12 @@ export class Session {
 		Session.current = null
 	}
 
+	static current_account() :string {
+		if (null != Session.current)
+			return Session.current.account
+		return ''
+	}
+
 	constructor(account: string, id: string, token: string, key: string) {
 		this.account = account
 		this.id = id
